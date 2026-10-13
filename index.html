@@ -6,192 +6,93 @@
 <title>Descobre o teu estilo de liderança</title>
 <style>
 :root {
-  --blue: #245a91;
-  --blue-dark: #173c64;
-  --bg: #f3f6fa;
-  --border: #dce4ed;
-  --text: #263548;
-  --muted: #637083;
+  --blue:#245a91;
+  --dark:#173c64;
+  --bg:#f3f6fa;
+  --border:#dce4ed;
+  --text:#263548;
+  --muted:#637083;
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  line-height: 1.5;
+*{box-sizing:border-box}
+body{
+  margin:0;padding:20px;font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);background:var(--bg);line-height:1.5
 }
-main {
-  max-width: 900px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 4px 20px #172b4d12;
+main{
+  max-width:900px;margin:auto;background:white;border-radius:16px;
+  padding:30px;box-shadow:0 4px 20px #172b4d12
 }
-header {
-  text-align: center;
-  margin-bottom: 28px;
+header{text-align:center;margin-bottom:28px}
+h1{color:var(--dark);font-size:clamp(25px,4vw,34px);line-height:1.2}
+h2{color:var(--dark)}
+.intro,.muted{color:var(--muted)}
+.notice{
+  padding:12px 15px;border-radius:8px;background:#eef5fc;
+  font-size:14px;text-align:left
 }
-h1 {
-  color: var(--blue-dark);
-  font-size: clamp(25px, 4vw, 34px);
-  line-height: 1.2;
+.progress-wrap{margin:22px 0}
+.progress-label{
+  display:flex;justify-content:space-between;gap:12px;
+  font-size:14px;margin-bottom:7px
 }
-h2 { color: var(--blue-dark); }
-.intro { color: var(--muted); }
-.notice {
-  padding: 12px 15px;
-  border-radius: 8px;
-  background: #eef5fc;
-  font-size: 14px;
-  text-align: left;
+progress{width:100%;height:10px;accent-color:var(--blue)}
+.question{
+  border:1px solid var(--border);border-radius:12px;
+  padding:20px;margin:20px 0
 }
-.progress-wrap {
-  margin: 22px 0;
+.question h2{font-size:19px;margin:0 0 8px}
+.question-help{color:var(--muted);font-size:14px;margin:0 0 14px}
+.option{
+  display:flex;align-items:flex-start;gap:11px;padding:12px;
+  margin:8px 0;border:1px solid var(--border);border-radius:8px;
+  cursor:pointer;transition:background .15s,border-color .15s
 }
-.progress-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 14px;
-  margin-bottom: 7px;
+.option:hover{background:#f4f8fd;border-color:#9bb9d9}
+.option:has(input:checked){background:#eaf3ff;border-color:var(--blue)}
+.option input{margin-top:4px;accent-color:var(--blue);flex-shrink:0}
+.option span{font-size:14px}
+button{
+  border:0;border-radius:8px;padding:14px 20px;
+  background:var(--blue);color:white;font-size:16px;
+  font-weight:bold;cursor:pointer
 }
-progress {
-  width: 100%;
-  height: 10px;
-  accent-color: var(--blue);
+button:hover{background:var(--dark)}
+button:focus-visible,input:focus-visible{
+  outline:3px solid #85b7f2;outline-offset:3px
 }
-.question {
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px 0;
+.secondary{color:var(--dark);background:#e9eef5}
+.secondary:hover{background:#dce5f0}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+#error{
+  display:none;color:#a12626;background:#fff0f0;
+  border-radius:8px;padding:12px;margin:15px 0
 }
-.question h2 {
-  font-size: 19px;
-  margin: 0 0 8px;
+#result{display:none;margin-top:30px;padding-top:24px;border-top:2px solid var(--border)}
+.winner{
+  border:1px solid #b8cee7;border-radius:10px;
+  padding:16px;margin:12px 0;background:#f3f8ff
 }
-.question-help {
-  color: var(--muted);
-  font-size: 14px;
-  margin: 0 0 14px;
+.winner h3{margin:0 0 6px;color:var(--dark)}
+.score-row{margin:17px 0}
+.score-heading{
+  display:flex;justify-content:space-between;gap:12px;
+  font-size:14px;margin-bottom:5px
 }
-.option {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  padding: 12px;
-  margin: 8px 0;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background .15s, border-color .15s;
+.score-track{background:#e9edf2;border-radius:20px;height:12px;overflow:hidden}
+.score-fill{background:var(--blue);height:100%;border-radius:20px}
+.small{color:var(--muted);font-size:13px;margin-top:24px}
+@media(max-width:600px){
+  body{padding:8px}
+  main{padding:17px;border-radius:10px}
+  .question{padding:14px}
+  .option{padding:11px 9px}
+  button{width:100%}
 }
-.option:hover {
-  background: #f4f8fd;
-  border-color: #9bb9d9;
-}
-.option:has(input:checked) {
-  background: #eaf3ff;
-  border-color: var(--blue);
-}
-.option input {
-  margin-top: 4px;
-  accent-color: var(--blue);
-  flex-shrink: 0;
-}
-.option strong {
-  display: block;
-  margin-bottom: 2px;
-}
-.option span {
-  font-size: 14px;
-}
-button {
-  border: 0;
-  border-radius: 8px;
-  padding: 14px 20px;
-  background: var(--blue);
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-button:hover { background: var(--blue-dark); }
-button:focus-visible, input:focus-visible {
-  outline: 3px solid #85b7f2;
-  outline-offset: 3px;
-}
-button:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
-}
-.secondary {
-  color: var(--blue-dark);
-  background: #e9eef5;
-}
-.secondary:hover { background: #dce5f0; }
-#error {
-  display: none;
-  color: #a12626;
-  background: #fff0f0;
-  border-radius: 8px;
-  padding: 12px;
-  margin: 15px 0;
-}
-#result {
-  display: none;
-  margin-top: 30px;
-  padding-top: 24px;
-  border-top: 2px solid var(--border);
-}
-.result-intro { color: var(--muted); }
-.winner {
-  border: 1px solid #b8cee7;
-  border-radius: 10px;
-  padding: 16px;
-  margin: 12px 0;
-  background: #f3f8ff;
-}
-.winner h3 { margin: 0 0 6px; color: var(--blue-dark); }
-.score-row { margin: 17px 0; }
-.score-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-.score-track {
-  background: #e9edf2;
-  border-radius: 20px;
-  height: 12px;
-  overflow: hidden;
-}
-.score-fill {
-  background: var(--blue);
-  height: 100%;
-  border-radius: 20px;
-}
-.small {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 24px;
-}
-@media(max-width:600px) {
-  body { padding: 8px; }
-  main { padding: 17px; border-radius: 10px; }
-  .question { padding: 14px; }
-  .option { padding: 11px 9px; }
-  button { width: 100%; }
+@media print{
+  body{background:white;padding:0}
+  main{max-width:none;box-shadow:none;padding:10px}
+  #quiz,.progress-wrap,.notice,.intro,.actions{display:none!important}
+  #result{display:block!important}
 }
 </style>
 </head>
@@ -202,12 +103,11 @@ button:disabled {
   <p class="intro">
     Responde a 8 perguntas sobre situações de gestão de projetos.
     Em cada pergunta, escolhe a opção que melhor representa a tua
-    forma habitual de agir.
+    forma habitual de agir. Não existem respostas certas ou erradas.
   </p>
   <p class="notice">
     <strong>Questionário anónimo:</strong> as respostas são calculadas
-    neste navegador e não são enviadas ao formador. Não existem
-    respostas certas ou erradas.
+    neste navegador e não são enviadas ao formador.
   </p>
 </header>
 
@@ -232,18 +132,15 @@ button:disabled {
 
 <section id="result" aria-live="polite">
   <h2>O teu perfil de liderança</h2>
-  <p class="result-intro" id="resultIntro"></p>
+  <p id="resultIntro" class="muted"></p>
   <div id="winners"></div>
   <h2>Pontuação dos oito estilos</h2>
-  <p class="result-intro">
-    Cada estilo pode obter entre 0 e 8 pontos.
-  </p>
+  <p class="muted">Cada estilo pode obter entre 0 e 8 pontos.</p>
   <div id="scores"></div>
   <p class="small">
-    Este questionário é uma ferramenta informal de reflexão e não
-    um teste psicométrico validado. O resultado indica preferências
+    Este questionário é uma ferramenta informal de reflexão e não um
+    teste psicométrico validado. O resultado indica preferências
     declaradas, não mede diretamente a eficácia da liderança.
-    Diferentes estilos podem ser úteis consoante a equipa e a situação.
   </p>
   <div class="actions">
     <button type="button" id="printButton" class="secondary">
@@ -258,53 +155,44 @@ button:disabled {
 
 const styles = [
   {
-    name: "Democrática",
-    description:
-      "Envolves a equipa nas decisões, escutas diferentes opiniões e procuras construir soluções partilhadas."
+    name:"Democrática",
+    description:"Envolves a equipa nas decisões, escutas diferentes opiniões e procuras construir soluções partilhadas."
   },
   {
-    name: "Autocrática",
-    description:
-      "Defines orientações e prioridades com clareza, tomas decisões e acompanhas de perto a execução."
+    name:"Autocrática",
+    description:"Defines orientações e prioridades com clareza, tomas decisões e acompanhas de perto a execução."
   },
   {
-    name: "Paternalista",
-    description:
-      "Dás especial importância ao apoio, à proteção e ao bem-estar das pessoas da equipa."
+    name:"Paternalista",
+    description:"Dás especial importância ao apoio, à proteção e ao bem-estar das pessoas da equipa."
   },
   {
-    name: "Motivadora",
-    description:
-      "Procuras encorajar as pessoas, reforçar a confiança e reconhecer o esforço e os contributos individuais."
+    name:"Motivadora",
+    description:"Procuras encorajar as pessoas, reforçar a confiança e reconhecer o esforço e os contributos individuais."
   },
   {
-    name: "Transformacional",
-    description:
-      "Mobilizas a equipa através de uma visão de futuro, de novos desafios e da vontade de melhorar e transformar."
+    name:"Transformacional",
+    description:"Mobilizas a equipa através de uma visão de futuro, de novos desafios e da vontade de melhorar e transformar."
   },
   {
-    name: "Especialista",
-    description:
-      "Privilegias o conhecimento técnico, a análise de evidências e a experiência para fundamentar decisões."
+    name:"Especialista",
+    description:"Privilegias o conhecimento técnico, a análise de evidências e a experiência para fundamentar decisões."
   },
   {
-    name: "Transacional",
-    description:
-      "Estabeleces objetivos, responsabilidades e critérios de desempenho, acompanhando os resultados e os compromissos."
+    name:"Transacional",
+    description:"Estabeleces objetivos, responsabilidades e critérios de desempenho, acompanhando os resultados e os compromissos."
   },
   {
-    name: "Liberal / Laissez-faire",
-    description:
-      "Concedes autonomia à equipa para organizar o trabalho e tomar decisões, intervindo quando necessário."
+    name:"Liberal / Laissez-faire",
+    description:"Concedes autonomia à equipa para organizar o trabalho e tomar decisões, intervindo quando necessário."
   }
 ];
 
-// Em todas as perguntas, as opções seguem a ordem dos oito estilos acima.
 const questions = [
   {
-    title: "Início de um novo projeto",
-    text: "A equipa vai iniciar um projeto importante. Como preferes definir a abordagem?",
-    options: [
+    title:"Início de um novo projeto",
+    text:"A equipa vai iniciar um projeto importante. Como preferes definir a abordagem?",
+    options:[
       "Reunir a equipa para discutir alternativas e construir uma decisão partilhada.",
       "Definir a abordagem, distribuir tarefas e comunicar as instruções.",
       "Conhecer as necessidades da equipa e garantir que as pessoas têm apoio.",
@@ -316,9 +204,9 @@ const questions = [
     ]
   },
   {
-    title: "Atraso no projeto",
-    text: "Uma atividade crítica está atrasada e o prazo final está em risco. Como reages?",
-    options: [
+    title:"Atraso no projeto",
+    text:"Uma atividade crítica está atrasada e o prazo final está em risco. Como reages?",
+    options:[
       "Debater com a equipa as alternativas para recuperar o prazo.",
       "Definir imediatamente as prioridades e indicar as ações a executar.",
       "Verificar como o atraso está a afetar as pessoas e que apoio necessitam.",
@@ -330,9 +218,9 @@ const questions = [
     ]
   },
   {
-    title: "Conflito entre membros da equipa",
-    text: "Dois elementos discordam sobre a melhor forma de executar uma tarefa. O que fazes?",
-    options: [
+    title:"Conflito entre membros da equipa",
+    text:"Dois elementos discordam sobre a melhor forma de executar uma tarefa. O que fazes?",
+    options:[
       "Facilitar uma discussão para que ambos participem na decisão.",
       "Tomar a decisão final e indicar a solução a seguir.",
       "Ouvir individualmente os envolvidos e procurar proteger as relações de trabalho.",
@@ -344,9 +232,9 @@ const questions = [
     ]
   },
   {
-    title: "Delegação de uma tarefa complexa",
-    text: "Tens de atribuir uma tarefa técnica importante. Como escolhes a forma de a acompanhar?",
-    options: [
+    title:"Delegação de uma tarefa complexa",
+    text:"Tens de atribuir uma tarefa técnica importante. Como escolhes a forma de a acompanhar?",
+    options:[
       "Consultar a equipa e considerar diferentes perspetivas antes de definir a abordagem.",
       "Especificar o método de trabalho e acompanhar de perto cada etapa.",
       "Considerar as capacidades, as necessidades e a carga de trabalho da pessoa escolhida.",
@@ -358,9 +246,9 @@ const questions = [
     ]
   },
   {
-    title: "Desmotivação na equipa",
-    text: "Um elemento da equipa perdeu motivação e o seu desempenho diminuiu. Como ages?",
-    options: [
+    title:"Desmotivação na equipa",
+    text:"Um elemento da equipa perdeu motivação e o seu desempenho diminuiu. Como ages?",
+    options:[
       "Conversar com a equipa e procurar soluções com a participação dos envolvidos.",
       "Clarificar as expectativas e indicar o que tem de mudar no desempenho.",
       "Compreender as dificuldades pessoais e oferecer apoio adequado.",
@@ -372,9 +260,9 @@ const questions = [
     ]
   },
   {
-    title: "Alteração solicitada pelo cliente",
-    text: "O cliente pede uma alteração que pode aumentar os custos e atrasar o projeto. Como procedes?",
-    options: [
+    title:"Alteração solicitada pelo cliente",
+    text:"O cliente pede uma alteração que pode aumentar os custos e atrasar o projeto. Como procedes?",
+    options:[
       "Consultar a equipa e discutir as consequências e alternativas.",
       "Decidir se a alteração deve avançar e comunicar a orientação a seguir.",
       "Considerar o impacto da alteração nas pessoas e nas condições de trabalho.",
@@ -386,9 +274,9 @@ const questions = [
     ]
   },
   {
-    title: "Qualidade e tomada de decisão",
-    text: "A equipa tem de escolher entre várias soluções para um problema com impacto na qualidade. O que valorizas mais?",
-    options: [
+    title:"Qualidade e tomada de decisão",
+    text:"A equipa tem de escolher entre várias soluções para um problema com impacto na qualidade. O que valorizas mais?",
+    options:[
       "Debater as alternativas e integrar os contributos dos vários elementos.",
       "Selecionar uma solução e dar instruções claras para a sua implementação.",
       "Considerar a segurança, as condições de trabalho e o impacto nas pessoas.",
@@ -400,9 +288,9 @@ const questions = [
     ]
   },
   {
-    title: "Avaliação do sucesso do projeto",
-    text: "No final do projeto, o que consideras mais importante para avaliar o sucesso da equipa?",
-    options: [
+    title:"Avaliação do sucesso do projeto",
+    text:"No final do projeto, o que consideras mais importante para avaliar o sucesso da equipa?",
+    options:[
       "A qualidade da participação e das decisões partilhadas durante o projeto.",
       "O cumprimento das orientações e das decisões tomadas.",
       "O bem-estar da equipa e a forma como as pessoas foram apoiadas.",
@@ -416,14 +304,14 @@ const questions = [
 ];
 
 const form = document.getElementById("quiz");
-const questionContainer = document.getElementById("questions");
+const container = document.getElementById("questions");
 const progress = document.getElementById("progress");
 const progressText = document.getElementById("progressText");
 const error = document.getElementById("error");
 const result = document.getElementById("result");
 
-function renderQuestions() {
-  questions.forEach((question, qi) => {
+function renderQuestions(){
+  questions.forEach((question, qi)=>{
     const section = document.createElement("section");
     section.className = "question";
 
@@ -436,7 +324,7 @@ function renderQuestions() {
     help.textContent = question.text;
     section.appendChild(help);
 
-    question.options.forEach((answer, si) => {
+    question.options.forEach((answer, si)=>{
       const label = document.createElement("label");
       label.className = "option";
 
@@ -446,39 +334,34 @@ function renderQuestions() {
       radio.value = String(si);
       radio.required = true;
 
-      const content = document.createElement("span");
-      const styleName = document.createElement("strong");
-      styleName.textContent = styles[si].name;
-      content.appendChild(styleName);
-      content.appendChild(document.createTextNode(answer));
+      const text = document.createElement("span");
+      text.textContent = String.fromCharCode(65 + si) + ") " + answer;
 
       label.appendChild(radio);
-      label.appendChild(content);
+      label.appendChild(text);
       section.appendChild(label);
     });
 
-    questionContainer.appendChild(section);
+    container.appendChild(section);
   });
 }
 
-function updateProgress() {
+function updateProgress(){
   let answered = 0;
-
-  questions.forEach((_, qi) => {
-    if (form.querySelector('input[name="q' + qi + '"]:checked')) {
+  questions.forEach((_, qi)=>{
+    if(form.querySelector('input[name="q' + qi + '"]:checked')){
       answered++;
     }
   });
-
   progress.value = answered;
   progressText.textContent = answered + " de " + questions.length + " respondidas";
 }
 
-function showResults(scores) {
+function showResults(scores){
   const maxScore = Math.max(...scores);
   const winnerIndexes = scores
-    .map((score, index) => score === maxScore ? index : -1)
-    .filter(index => index !== -1);
+    .map((score, index)=>score === maxScore ? index : -1)
+    .filter(index=>index !== -1);
 
   const winners = document.getElementById("winners");
   const scoresContainer = document.getElementById("scores");
@@ -491,7 +374,7 @@ function showResults(scores) {
     ? "O estilo com maior pontuação é " + styles[winnerIndexes[0]].name + "."
     : "Existe um empate entre os seguintes estilos predominantes.";
 
-  winnerIndexes.forEach(index => {
+  winnerIndexes.forEach(index=>{
     const card = document.createElement("div");
     card.className = "winner";
 
@@ -506,12 +389,11 @@ function showResults(scores) {
     winners.appendChild(card);
   });
 
-  // Mostrar primeiro os estilos com maior pontuação.
-  const ranking = styles.map((style, index) => ({
-    style, index, score: scores[index]
-  })).sort((a, b) => b.score - a.score || a.index - b.index);
+  const ranking = styles.map((style, index)=>({
+    style, index, score:scores[index]
+  })).sort((a,b)=>b.score-a.score || a.index-b.index);
 
-  ranking.forEach(item => {
+  ranking.forEach(item=>{
     const row = document.createElement("div");
     row.className = "score-row";
 
@@ -529,8 +411,9 @@ function showResults(scores) {
 
     const track = document.createElement("div");
     track.className = "score-track";
-    track.setAttribute("role", "img");
-    track.setAttribute("aria-label", item.style.name + ": " + item.score + " de 8 pontos");
+    track.setAttribute("role","img");
+    track.setAttribute("aria-label",
+      item.style.name + ": " + item.score + " de 8 pontos");
 
     const fill = document.createElement("div");
     fill.className = "score-fill";
@@ -543,37 +426,34 @@ function showResults(scores) {
   });
 
   result.style.display = "block";
-  result.scrollIntoView({ behavior: "smooth", block: "start" });
+  result.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 form.addEventListener("change", updateProgress);
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function(event){
   event.preventDefault();
 
   const scores = Array(styles.length).fill(0);
   let complete = true;
+  let firstMissing = -1;
 
-  questions.forEach((_, qi) => {
+  questions.forEach((_, qi)=>{
     const chosen = form.querySelector('input[name="q' + qi + '"]:checked');
-    if (!chosen) {
+    if(!chosen){
       complete = false;
-    } else {
+      if(firstMissing === -1) firstMissing = qi;
+    }else{
       scores[Number(chosen.value)]++;
     }
   });
 
-  if (!complete) {
+  if(!complete){
     error.style.display = "block";
-    const firstMissing = questions.findIndex((_, qi) =>
-      !form.querySelector('input[name="q' + qi + '"]:checked')
-    );
-    const firstQuestion = form.querySelector(
-      'input[name="q' + firstMissing + '"]'
-    );
-    firstQuestion.focus();
-    firstQuestion.closest(".question").scrollIntoView({
-      behavior: "smooth", block: "center"
+    const input = form.querySelector('input[name="q' + firstMissing + '"]');
+    input.focus();
+    input.closest(".question").scrollIntoView({
+      behavior:"smooth",block:"center"
     });
     return;
   }
@@ -582,13 +462,13 @@ form.addEventListener("submit", function(event) {
   showResults(scores);
 });
 
-form.addEventListener("reset", function() {
+form.addEventListener("reset", function(){
   error.style.display = "none";
   result.style.display = "none";
   updateProgress();
 });
 
-document.getElementById("printButton").addEventListener("click", function() {
+document.getElementById("printButton").addEventListener("click", function(){
   window.print();
 });
 
