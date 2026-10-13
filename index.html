@@ -1,208 +1,599 @@
+<!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Questionário de Estilos de Liderança</title>
+<title>Descobre o teu estilo de liderança</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f3f5f8;color:#263244;margin:0;padding:20px}
-main{max-width:850px;margin:auto;background:white;padding:28px;border-radius:14px}
-h1{color:#193b63} .intro{line-height:1.6;color:#4b5563}
-.question{border:1px solid #dce3eb;border-radius:10px;padding:16px;margin:18px 0}
-.question h3{margin-top:0;font-size:17px}
-label{display:block;padding:9px;margin:4px 0;background:#f7f9fc;border-radius:6px;cursor:pointer}
-label:hover{background:#e9f1fb}
-button{background:#205da8;color:white;border:0;padding:13px 20px;border-radius:7px;font-size:16px;cursor:pointer}
-button:hover{background:#174779}
-#result{display:none;margin-top:24px;padding:20px;background:#edf5ff;border-radius:10px}
-.small{font-size:13px;color:#667085}
+:root {
+  --blue: #245a91;
+  --blue-dark: #173c64;
+  --bg: #f3f6fa;
+  --border: #dce4ed;
+  --text: #263548;
+  --muted: #637083;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px #172b4d12;
+}
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+h1 {
+  color: var(--blue-dark);
+  font-size: clamp(25px, 4vw, 34px);
+  line-height: 1.2;
+}
+h2 { color: var(--blue-dark); }
+.intro { color: var(--muted); }
+.notice {
+  padding: 12px 15px;
+  border-radius: 8px;
+  background: #eef5fc;
+  font-size: 14px;
+  text-align: left;
+}
+.progress-wrap {
+  margin: 22px 0;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+progress {
+  width: 100%;
+  height: 10px;
+  accent-color: var(--blue);
+}
+.question {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.question h2 {
+  font-size: 19px;
+  margin: 0 0 8px;
+}
+.question-help {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.option:hover {
+  background: #f4f8fd;
+  border-color: #9bb9d9;
+}
+.option:has(input:checked) {
+  background: #eaf3ff;
+  border-color: var(--blue);
+}
+.option input {
+  margin-top: 4px;
+  accent-color: var(--blue);
+  flex-shrink: 0;
+}
+.option strong {
+  display: block;
+  margin-bottom: 2px;
+}
+.option span {
+  font-size: 14px;
+}
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 14px 20px;
+  background: var(--blue);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background: var(--blue-dark); }
+button:focus-visible, input:focus-visible {
+  outline: 3px solid #85b7f2;
+  outline-offset: 3px;
+}
+button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.secondary {
+  color: var(--blue-dark);
+  background: #e9eef5;
+}
+.secondary:hover { background: #dce5f0; }
+#error {
+  display: none;
+  color: #a12626;
+  background: #fff0f0;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 15px 0;
+}
+#result {
+  display: none;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+}
+.result-intro { color: var(--muted); }
+.winner {
+  border: 1px solid #b8cee7;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 12px 0;
+  background: #f3f8ff;
+}
+.winner h3 { margin: 0 0 6px; color: var(--blue-dark); }
+.score-row { margin: 17px 0; }
+.score-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.score-track {
+  background: #e9edf2;
+  border-radius: 20px;
+  height: 12px;
+  overflow: hidden;
+}
+.score-fill {
+  background: var(--blue);
+  height: 100%;
+  border-radius: 20px;
+}
+.small {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 24px;
+}
+@media(max-width:600px) {
+  body { padding: 8px; }
+  main { padding: 17px; border-radius: 10px; }
+  .question { padding: 14px; }
+  .option { padding: 11px 9px; }
+  button { width: 100%; }
+}
 </style>
 </head>
 <body>
 <main>
-<h1>Qual é o teu estilo de liderança?</h1>
-<p class="intro">Responde às 16 perguntas escolhendo, em cada uma, a opção que melhor representa a tua forma habitual de agir. Não existem respostas certas ou erradas. No final, verás os estilos que mais se aproximam das tuas escolhas.</p>
-<p class="small">Questionário anónimo: as respostas são calculadas neste navegador e não são enviadas ao formador.</p>
+<header>
+  <h1>Descobre o teu estilo de liderança</h1>
+  <p class="intro">
+    Responde a 8 perguntas sobre situações de gestão de projetos.
+    Em cada pergunta, escolhe a opção que melhor representa a tua
+    forma habitual de agir.
+  </p>
+  <p class="notice">
+    <strong>Questionário anónimo:</strong> as respostas são calculadas
+    neste navegador e não são enviadas ao formador. Não existem
+    respostas certas ou erradas.
+  </p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span>Progresso do questionário</span>
+    <span id="progressText">0 de 8 respondidas</span>
+  </div>
+  <progress id="progress" value="0" max="8"></progress>
+</div>
 
 <form id="quiz">
-<div id="questions"></div>
-<button type="submit">Calcular o meu resultado</button>
+  <div id="questions"></div>
+  <div id="error" role="alert">
+    Responde às oito perguntas antes de calcular o resultado.
+  </div>
+  <div class="actions">
+    <button type="submit">Calcular o meu resultado</button>
+    <button type="reset" class="secondary">Recomeçar</button>
+  </div>
 </form>
-<div id="result" aria-live="polite"></div>
+
+<section id="result" aria-live="polite">
+  <h2>O teu perfil de liderança</h2>
+  <p class="result-intro" id="resultIntro"></p>
+  <div id="winners"></div>
+  <h2>Pontuação dos oito estilos</h2>
+  <p class="result-intro">
+    Cada estilo pode obter entre 0 e 8 pontos.
+  </p>
+  <div id="scores"></div>
+  <p class="small">
+    Este questionário é uma ferramenta informal de reflexão e não
+    um teste psicométrico validado. O resultado indica preferências
+    declaradas, não mede diretamente a eficácia da liderança.
+    Diferentes estilos podem ser úteis consoante a equipa e a situação.
+  </p>
+  <div class="actions">
+    <button type="button" id="printButton" class="secondary">
+      Imprimir ou guardar o resultado em PDF
+    </button>
+  </div>
+</section>
 </main>
+
 <script>
+"use strict";
+
 const styles = [
-"Democrática","Autocrática","Paternalista","Motivadora",
-"Transformacional","Especialista","Transacional","Liberal / Laissez-faire"
+  {
+    name: "Democrática",
+    description:
+      "Envolves a equipa nas decisões, escutas diferentes opiniões e procuras construir soluções partilhadas."
+  },
+  {
+    name: "Autocrática",
+    description:
+      "Defines orientações e prioridades com clareza, tomas decisões e acompanhas de perto a execução."
+  },
+  {
+    name: "Paternalista",
+    description:
+      "Dás especial importância ao apoio, à proteção e ao bem-estar das pessoas da equipa."
+  },
+  {
+    name: "Motivadora",
+    description:
+      "Procuras encorajar as pessoas, reforçar a confiança e reconhecer o esforço e os contributos individuais."
+  },
+  {
+    name: "Transformacional",
+    description:
+      "Mobilizas a equipa através de uma visão de futuro, de novos desafios e da vontade de melhorar e transformar."
+  },
+  {
+    name: "Especialista",
+    description:
+      "Privilegias o conhecimento técnico, a análise de evidências e a experiência para fundamentar decisões."
+  },
+  {
+    name: "Transacional",
+    description:
+      "Estabeleces objetivos, responsabilidades e critérios de desempenho, acompanhando os resultados e os compromissos."
+  },
+  {
+    name: "Liberal / Laissez-faire",
+    description:
+      "Concedes autonomia à equipa para organizar o trabalho e tomar decisões, intervindo quando necessário."
+  }
 ];
 
-const descriptions = [
-"Envolves a equipa nas decisões, escutas opiniões diferentes e procuras construir consensos.",
-"Defines orientações claras, decides e acompanhas de perto a execução.",
-"Privilegias o apoio, a proteção e o bem-estar das pessoas da equipa.",
-"Procuras inspirar, encorajar e reconhecer as pessoas para melhorar a sua confiança.",
-"Mobilizas a equipa através de uma visão de futuro, da mudança e de objetivos ambiciosos.",
-"Baseias as decisões no conhecimento técnico, na análise e na experiência especializada.",
-"Definis objetivos e expectativas claras, acompanhando resultados e reconhecendo o desempenho.",
-"Dás autonomia à equipa e intervéns pouco, confiando na capacidade das pessoas para se organizarem."
-];
-
+// Em todas as perguntas, as opções seguem a ordem dos oito estilos acima.
 const questions = [
-["Ao iniciar um novo projeto, como preferes definir a abordagem?",
- ["Debater as alternativas com a equipa antes de decidir.",
-  "Compreender as necessidades das pessoas e garantir apoio.",
-  "Apresentar uma visão ambiciosa do que se pretende alcançar.",
-  "Definir objetivos, prazos e critérios de desempenho."]],
-["Quando o projeto está atrasado, o que fazes primeiro?",
- ["Dar instruções claras e definir as prioridades imediatamente.",
-  "Recuperar a confiança da equipa através de incentivo.",
-  "Analisar tecnicamente as causas do atraso.",
-  "Deixar a equipa organizar-se e propor a recuperação."]],
-["Perante uma decisão urgente, como ages?",
- ["Procurar uma solução que proteja as pessoas envolvidas.",
-  "Relacionar a decisão com os objetivos futuros e mobilizar a equipa.",
-  "Rever os objetivos, prazos e consequências do incumprimento.",
-  "Ouvir as perspetivas da equipa antes de escolher."]],
-["Um colaborador cometeu um erro. Como respondes?",
- ["Ajudá-lo a recuperar a confiança e a aprender com o erro.",
-  "Analisar tecnicamente a causa e a forma de evitar a repetição.",
-  "Dar-lhe autonomia para identificar e aplicar a solução.",
-  "Tomar uma decisão clara sobre as medidas a implementar."]],
-["Surge uma proposta inovadora. O que valorizas mais?",
- ["Explorar uma visão diferente e desafiar a forma habitual de trabalhar.",
-  "Definir metas concretas para avaliar os resultados da proposta.",
-  "Ouvir as diferentes opiniões antes de decidir.",
-  "Considerar o impacto da proposta no bem-estar da equipa."]],
-["Como atribuis uma tarefa técnica complexa?",
- ["Basear a escolha na competência e no conhecimento técnico.",
-  "Permitir que o profissional organize livremente o trabalho.",
-  "Definir o método e acompanhar de perto cada etapa.",
-  "Encorajar a pessoa e reconhecer o seu potencial."]],
-["Dois elementos da equipa estão em conflito. O que fazes?",
- ["Verificar se os objetivos e responsabilidades estão a ser cumpridos.",
-  "Facilitar uma decisão partilhada entre os envolvidos.",
-  "Mediar o conflito com atenção às necessidades de cada pessoa.",
-  "Enquadrar o conflito numa visão comum e incentivar uma nova abordagem."]],
-["A equipa tem de implementar uma mudança significativa. Como ages?",
- ["Dar espaço para que a equipa encontre a sua própria forma de adaptação.",
-  "Estabelecer orientações e decisões claras para a implementação.",
-  "Mostrar os benefícios da mudança e celebrar os progressos.",
-  "Avaliar os aspetos técnicos e os riscos da mudança."]],
-["Um colaborador experiente pede maior autonomia. Como respondes?",
- ["Discutir a mudança de abordagem com a equipa.",
-  "Apoiar a pessoa e assegurar que tem condições para trabalhar bem.",
-  "Apresentar uma visão de evolução e novos desafios.",
-  "Acordar objetivos e avaliar os resultados alcançados."]],
-["A equipa alcança um resultado difícil. O que destacas?",
- ["Definir as próximas orientações para manter o desempenho.",
-  "Reconhecer o esforço e reforçar a confiança das pessoas.",
-  "Destacar a competência técnica que permitiu alcançar o resultado.",
-  "Confiar à equipa a decisão sobre os próximos passos."]],
-["Tens de escolher uma solução para um problema complexo. Como procedes?",
- ["Avaliar dados, evidências e alternativas técnicas.",
-  "Deixar os especialistas decidir como executar o trabalho.",
-  "Tomar a decisão e comunicar claramente o que deve ser feito.",
-  "Motivar a equipa a ultrapassar o desafio."]],
-["Um membro da equipa está desmotivado. O que fazes?",
- ["Clarificar objetivos, responsabilidades e expectativas.",
-  "Compreender as necessidades da pessoa e oferecer apoio.",
-  "Ajudá-la a recuperar a confiança através de incentivo.",
-  "Relacionar o trabalho com um propósito maior e oportunidades de crescimento."]],
-["O cliente pede uma alteração que pode atrasar o projeto. Como ages?",
- ["Analisar o impacto técnico antes de recomendar uma solução.",
-  "Consultar a equipa e ponderar as alternativas em conjunto.",
-  "Decidir rapidamente e indicar a orientação a seguir.",
-  "Permitir que os responsáveis envolvidos negociem uma solução."]],
-["Como defines o sucesso de uma equipa?",
- ["Alcançar objetivos e cumprir os compromissos acordados.",
-  "Conseguir resultados sem descurar o bem-estar das pessoas.",
-  "Superar expectativas e produzir uma mudança significativa.",
-  "Ver as pessoas ganhar confiança e sentirem o seu esforço reconhecido."]],
-["Qual é a tua abordagem habitual quando delegas trabalho?",
- ["Dar autonomia e confiar na capacidade de decisão do profissional.",
-  "Dar instruções claras e verificar se são seguidas.",
-  "Encorajar a pessoa e reconhecer a sua contribuição.",
-  "Valorizar a análise técnica e a qualidade da solução."]],
-["O que consideras mais importante na liderança?",
- ["Envolver as pessoas nas decisões e ouvir opiniões diferentes.",
-  "Dar orientações claras e assegurar que são cumpridas.",
-  "Apoiar as pessoas e proteger o seu bem-estar.",
-  "Inspirar a equipa com uma visão de futuro e promover a mudança."]]];
-
-// Cada estilo aparece em exatamente 8 das 64 opções.
-const styleOrder = questions.map((_,i) =>
-  [i%8,(i+2)%8,(i+4)%8,(i+6)%8]
-);
+  {
+    title: "Início de um novo projeto",
+    text: "A equipa vai iniciar um projeto importante. Como preferes definir a abordagem?",
+    options: [
+      "Reunir a equipa para discutir alternativas e construir uma decisão partilhada.",
+      "Definir a abordagem, distribuir tarefas e comunicar as instruções.",
+      "Conhecer as necessidades da equipa e garantir que as pessoas têm apoio.",
+      "Transmitir confiança, incentivar a equipa e reconhecer o contributo de cada pessoa.",
+      "Apresentar uma visão ambiciosa e mobilizar todos para alcançar algo novo.",
+      "Analisar os requisitos e escolher a abordagem tecnicamente mais adequada.",
+      "Estabelecer objetivos, prazos, responsabilidades e critérios de sucesso.",
+      "Definir o resultado esperado e deixar a equipa escolher como se organizar."
+    ]
+  },
+  {
+    title: "Atraso no projeto",
+    text: "Uma atividade crítica está atrasada e o prazo final está em risco. Como reages?",
+    options: [
+      "Debater com a equipa as alternativas para recuperar o prazo.",
+      "Definir imediatamente as prioridades e indicar as ações a executar.",
+      "Verificar como o atraso está a afetar as pessoas e que apoio necessitam.",
+      "Reforçar a confiança da equipa e encorajá-la a ultrapassar a dificuldade.",
+      "Relembrar o objetivo comum e mobilizar todos para encontrar uma solução ambiciosa.",
+      "Analisar as causas técnicas do atraso e avaliar soluções com base em evidências.",
+      "Rever o plano, os responsáveis, os prazos e as medidas corretivas.",
+      "Deixar os responsáveis pela atividade propor e implementar a recuperação."
+    ]
+  },
+  {
+    title: "Conflito entre membros da equipa",
+    text: "Dois elementos discordam sobre a melhor forma de executar uma tarefa. O que fazes?",
+    options: [
+      "Facilitar uma discussão para que ambos participem na decisão.",
+      "Tomar a decisão final e indicar a solução a seguir.",
+      "Ouvir individualmente os envolvidos e procurar proteger as relações de trabalho.",
+      "Encorajar os dois elementos a ultrapassar a divergência e a recuperar a confiança.",
+      "Transformar o conflito numa oportunidade para repensar a abordagem e melhorar.",
+      "Comparar os argumentos técnicos e identificar a solução mais fundamentada.",
+      "Relembrar as responsabilidades acordadas e os resultados esperados.",
+      "Dar aos dois elementos autonomia para resolverem a divergência entre si."
+    ]
+  },
+  {
+    title: "Delegação de uma tarefa complexa",
+    text: "Tens de atribuir uma tarefa técnica importante. Como escolhes a forma de a acompanhar?",
+    options: [
+      "Consultar a equipa e considerar diferentes perspetivas antes de definir a abordagem.",
+      "Especificar o método de trabalho e acompanhar de perto cada etapa.",
+      "Considerar as capacidades, as necessidades e a carga de trabalho da pessoa escolhida.",
+      "Transmitir confiança à pessoa e reconhecer o desafio que vai assumir.",
+      "Apresentar o potencial da tarefa para desenvolver novas capacidades e alcançar melhorias.",
+      "Escolher com base na competência técnica e nos conhecimentos necessários.",
+      "Definir entregáveis, prazos e critérios objetivos para avaliar o resultado.",
+      "Confiar na pessoa para decidir como executar a tarefa, mantendo autonomia."
+    ]
+  },
+  {
+    title: "Desmotivação na equipa",
+    text: "Um elemento da equipa perdeu motivação e o seu desempenho diminuiu. Como ages?",
+    options: [
+      "Conversar com a equipa e procurar soluções com a participação dos envolvidos.",
+      "Clarificar as expectativas e indicar o que tem de mudar no desempenho.",
+      "Compreender as dificuldades pessoais e oferecer apoio adequado.",
+      "Reconhecer os progressos, reforçar a confiança e incentivar a pessoa.",
+      "Relacionar o trabalho com um propósito maior e novas oportunidades de crescimento.",
+      "Identificar as dificuldades de competência ou conhecimento que podem estar a afetar o trabalho.",
+      "Rever os objetivos e os compromissos de desempenho acordados.",
+      "Dar à pessoa espaço para encontrar a sua própria forma de recuperar a motivação."
+    ]
+  },
+  {
+    title: "Alteração solicitada pelo cliente",
+    text: "O cliente pede uma alteração que pode aumentar os custos e atrasar o projeto. Como procedes?",
+    options: [
+      "Consultar a equipa e discutir as consequências e alternativas.",
+      "Decidir se a alteração deve avançar e comunicar a orientação a seguir.",
+      "Considerar o impacto da alteração nas pessoas e nas condições de trabalho.",
+      "Explicar o desafio à equipa e encorajá-la a encontrar uma solução positiva.",
+      "Avaliar se a alteração contribui para a visão e os benefícios pretendidos para o projeto.",
+      "Analisar a viabilidade técnica, os riscos e as implicações da alteração.",
+      "Avaliar os impactos no âmbito, no orçamento, nos prazos e nos compromissos contratuais.",
+      "Deixar os responsáveis relevantes desenvolver e propor a solução, dentro da sua autonomia."
+    ]
+  },
+  {
+    title: "Qualidade e tomada de decisão",
+    text: "A equipa tem de escolher entre várias soluções para um problema com impacto na qualidade. O que valorizas mais?",
+    options: [
+      "Debater as alternativas e integrar os contributos dos vários elementos.",
+      "Selecionar uma solução e dar instruções claras para a sua implementação.",
+      "Considerar a segurança, as condições de trabalho e o impacto nas pessoas.",
+      "Incentivar a equipa a enfrentar o desafio e reconhecer o seu empenho.",
+      "Procurar uma solução que transforme positivamente a forma de trabalhar.",
+      "Comparar dados, normas, evidências e requisitos técnicos.",
+      "Definir critérios de aceitação, metas de qualidade e mecanismos de controlo.",
+      "Dar aos profissionais responsáveis autonomia para escolher a solução."
+    ]
+  },
+  {
+    title: "Avaliação do sucesso do projeto",
+    text: "No final do projeto, o que consideras mais importante para avaliar o sucesso da equipa?",
+    options: [
+      "A qualidade da participação e das decisões partilhadas durante o projeto.",
+      "O cumprimento das orientações e das decisões tomadas.",
+      "O bem-estar da equipa e a forma como as pessoas foram apoiadas.",
+      "A confiança desenvolvida e o reconhecimento do esforço realizado.",
+      "A concretização da visão e a melhoria alcançada para além do esperado.",
+      "A qualidade técnica das soluções e a solidez dos resultados.",
+      "O cumprimento dos objetivos, prazos, custos e critérios de desempenho.",
+      "A capacidade da equipa para trabalhar autonomamente e assumir responsabilidades."
+    ]
+  }
+];
 
 const form = document.getElementById("quiz");
-const container = document.getElementById("questions");
+const questionContainer = document.getElementById("questions");
+const progress = document.getElementById("progress");
+const progressText = document.getElementById("progressText");
+const error = document.getElementById("error");
+const result = document.getElementById("result");
 
-questions.forEach((q,i)=>{
-  const section=document.createElement("section");
-  section.className="question";
-  const heading=document.createElement("h3");
-  heading.textContent=(i+1)+". "+q[0];
-  section.appendChild(heading);
+function renderQuestions() {
+  questions.forEach((question, qi) => {
+    const section = document.createElement("section");
+    section.className = "question";
 
-  q[1].forEach((answer,j)=>{
-    const label=document.createElement("label");
-    const radio=document.createElement("input");
-    radio.type="radio";
-    radio.name="q"+i;
-    radio.value=styleOrder[i][j];
-    radio.required=true;
-    label.appendChild(radio);
-    label.appendChild(document.createTextNode(" "+String.fromCharCode(65+j)+") "+answer));
-    section.appendChild(label);
+    const heading = document.createElement("h2");
+    heading.textContent = (qi + 1) + ". " + question.title;
+    section.appendChild(heading);
+
+    const help = document.createElement("p");
+    help.className = "question-help";
+    help.textContent = question.text;
+    section.appendChild(help);
+
+    question.options.forEach((answer, si) => {
+      const label = document.createElement("label");
+      label.className = "option";
+
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "q" + qi;
+      radio.value = String(si);
+      radio.required = true;
+
+      const content = document.createElement("span");
+      const styleName = document.createElement("strong");
+      styleName.textContent = styles[si].name;
+      content.appendChild(styleName);
+      content.appendChild(document.createTextNode(answer));
+
+      label.appendChild(radio);
+      label.appendChild(content);
+      section.appendChild(label);
+    });
+
+    questionContainer.appendChild(section);
   });
-  container.appendChild(section);
-});
+}
 
-form.addEventListener("submit",function(e){
-  e.preventDefault();
-  const scores=Array(8).fill(0);
-  for(let i=0;i<questions.length;i++){
-    const chosen=form.querySelector('input[name="q'+i+'"]:checked');
-    if(!chosen){
-      alert("Responde a todas as perguntas antes de calcular o resultado.");
-      return;
+function updateProgress() {
+  let answered = 0;
+
+  questions.forEach((_, qi) => {
+    if (form.querySelector('input[name="q' + qi + '"]:checked')) {
+      answered++;
     }
-    scores[Number(chosen.value)]++;
+  });
+
+  progress.value = answered;
+  progressText.textContent = answered + " de " + questions.length + " respondidas";
+}
+
+function showResults(scores) {
+  const maxScore = Math.max(...scores);
+  const winnerIndexes = scores
+    .map((score, index) => score === maxScore ? index : -1)
+    .filter(index => index !== -1);
+
+  const winners = document.getElementById("winners");
+  const scoresContainer = document.getElementById("scores");
+  const intro = document.getElementById("resultIntro");
+
+  winners.replaceChildren();
+  scoresContainer.replaceChildren();
+
+  intro.textContent = winnerIndexes.length === 1
+    ? "O estilo com maior pontuação é " + styles[winnerIndexes[0]].name + "."
+    : "Existe um empate entre os seguintes estilos predominantes.";
+
+  winnerIndexes.forEach(index => {
+    const card = document.createElement("div");
+    card.className = "winner";
+
+    const heading = document.createElement("h3");
+    heading.textContent = styles[index].name + " — " + scores[index] + "/8";
+
+    const description = document.createElement("p");
+    description.textContent = styles[index].description;
+
+    card.appendChild(heading);
+    card.appendChild(description);
+    winners.appendChild(card);
+  });
+
+  // Mostrar primeiro os estilos com maior pontuação.
+  const ranking = styles.map((style, index) => ({
+    style, index, score: scores[index]
+  })).sort((a, b) => b.score - a.score || a.index - b.index);
+
+  ranking.forEach(item => {
+    const row = document.createElement("div");
+    row.className = "score-row";
+
+    const heading = document.createElement("div");
+    heading.className = "score-heading";
+
+    const name = document.createElement("span");
+    name.textContent = item.style.name;
+
+    const value = document.createElement("strong");
+    value.textContent = item.score + "/8";
+
+    heading.appendChild(name);
+    heading.appendChild(value);
+
+    const track = document.createElement("div");
+    track.className = "score-track";
+    track.setAttribute("role", "img");
+    track.setAttribute("aria-label", item.style.name + ": " + item.score + " de 8 pontos");
+
+    const fill = document.createElement("div");
+    fill.className = "score-fill";
+    fill.style.width = (item.score / 8 * 100) + "%";
+
+    track.appendChild(fill);
+    row.appendChild(heading);
+    row.appendChild(track);
+    scoresContainer.appendChild(row);
+  });
+
+  result.style.display = "block";
+  result.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+form.addEventListener("change", updateProgress);
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const scores = Array(styles.length).fill(0);
+  let complete = true;
+
+  questions.forEach((_, qi) => {
+    const chosen = form.querySelector('input[name="q' + qi + '"]:checked');
+    if (!chosen) {
+      complete = false;
+    } else {
+      scores[Number(chosen.value)]++;
+    }
+  });
+
+  if (!complete) {
+    error.style.display = "block";
+    const firstMissing = questions.findIndex((_, qi) =>
+      !form.querySelector('input[name="q' + qi + '"]:checked')
+    );
+    const firstQuestion = form.querySelector(
+      'input[name="q' + firstMissing + '"]'
+    );
+    firstQuestion.focus();
+    firstQuestion.closest(".question").scrollIntoView({
+      behavior: "smooth", block: "center"
+    });
+    return;
   }
 
-  const max=Math.max(...scores);
-  const winners=styles.filter((_,i)=>scores[i]===max);
-  const result=document.getElementById("result");
-  result.innerHTML="";
-  const title=document.createElement("h2");
-  title.textContent=winners.length===1
-    ?"O teu estilo predominante: "+winners[0]
-    :"Os teus estilos predominantes: "+winners.join(", ");
-  result.appendChild(title);
-
-  winners.forEach(name=>{
-    const idx=styles.indexOf(name);
-    const p=document.createElement("p");
-    p.textContent=descriptions[idx];
-    result.appendChild(p);
-  });
-
-  const subtitle=document.createElement("h3");
-  subtitle.textContent="Pontuação por estilo";
-  result.appendChild(subtitle);
-
-  styles.forEach((name,i)=>{
-    const p=document.createElement("p");
-    p.textContent=name+": "+scores[i]+" de 16";
-    result.appendChild(p);
-  });
-
-  const note=document.createElement("p");
-  note.className="small";
-  note.textContent="Este questionário é uma ferramenta informal de reflexão, não um teste psicométrico validado. O resultado depende das opções escolhidas e pode refletir mais do que um estilo.";
-  result.appendChild(note);
-  result.style.display="block";
-  result.scrollIntoView({behavior:"smooth"});
+  error.style.display = "none";
+  showResults(scores);
 });
+
+form.addEventListener("reset", function() {
+  error.style.display = "none";
+  result.style.display = "none";
+  updateProgress();
+});
+
+document.getElementById("printButton").addEventListener("click", function() {
+  window.print();
+});
+
+renderQuestions();
+updateProgress();
 </script>
 </body>
 </html>
